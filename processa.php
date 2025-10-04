@@ -41,21 +41,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    // Like / Deslike
+    // Like
     if (isset($_POST['like_id'])) {
         $id = (int) $_POST['like_id'];
 
+        // Se não houver likes ainda, inicializa
         if (!isset($_SESSION['likes'])) {
             $_SESSION['likes'] = [];
         }
 
-        if (in_array($id, $_SESSION['likes'])) {
-            // Se já curtiu, remove
-            $_SESSION['likes'] = array_diff($_SESSION['likes'], [$id]);
-        } else {
-            // Se não curtiu, adiciona
-            $_SESSION['likes'][] = $id;
+        // Se o post não tiver curtidas ainda, começa com 0
+        if (!isset($_SESSION['likes'][$id])) {
+            $_SESSION['likes'][$id] = 0;
         }
+
+        // Incrementa curtidas
+        $_SESSION['likes'][$id]++;
 
         header("Location: index.php");
         exit;

@@ -129,9 +129,10 @@ $usuario = $_SESSION['usuario'] ?? "usuario_padrao";
             <form method="POST" action="processa.php">
               <div class="post-actions">
                   <input type="hidden" name="like_id" value="<?= $id ?>">
-                  <button type="submit" class="like-btn">
-                    <?= in_array($id, $_SESSION['likes']) ? "❤️" : "🖤" ?>
-                  </button>
+                  <button type="submit" class="like-btn">❤️</button>
+                  <span>
+                    <?= $_SESSION['likes'][$id] ?? 0 ?> curtidas
+                  </span>
               </div>
             </form>
           </div>
